@@ -6,6 +6,14 @@ struct FrameView: View {
     @State private var isRecording: Bool = false
     @State private var counter: Int = 0
     
+    func convertSecondsToTime(timeInSeconds : Int) -> String {
+        
+        let minutes = timeInSeconds / 60
+        let seconds = timeInSeconds % 60
+        
+        return String(format: "%02i:%02i", minutes, seconds)
+    }
+    
     var body: some View {
         ZStack {
             if let image = image {
@@ -13,7 +21,8 @@ struct FrameView: View {
             } else {
                 Color.white
             }
-            Text("00:0\(self.counter)")
+            
+            Text(self.convertSecondsToTime(timeInSeconds: self.counter))
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(self.isRecording == true ? Color.red : Color.black)
